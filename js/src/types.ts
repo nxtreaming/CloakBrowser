@@ -34,6 +34,11 @@ export interface LaunchContextOptions extends LaunchOptions {
   colorScheme?: "light" | "dark" | "no-preference";
 }
 
+export interface LaunchPersistentContextOptions extends LaunchContextOptions {
+  /** Path to user data directory for persistent profile. */
+  userDataDir: string;
+}
+
 export interface BinaryInfo {
   version: string;
   platform: string;
