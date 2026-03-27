@@ -24,15 +24,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: "3.12"
       - name: Python tests
         run: |
           pip install -e ".[dev]" pytest pytest-asyncio
           pytest tests/ -v -m "not slow"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
         with:
           node-version: 22
       - name: JavaScript tests
@@ -42,8 +42,8 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: "3.12"
       - name: Check tag matches package versions
@@ -62,8 +62,8 @@ jobs:
     permissions:
       id-token: write  # OIDC trusted publishing — no PYPI_TOKEN needed
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
         with:
           python-version: "3.12"
       - name: Build
@@ -71,7 +71,7 @@ jobs:
           pip install build
           python -m build
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e  # v1
 
   publish-npm:
     needs: [test, validate-version]
@@ -80,8 +80,8 @@ jobs:
     permissions:
       id-token: write  # OIDC trusted publishing + provenance — no NPM_TOKEN needed
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -102,20 +102,20 @@ jobs:
       attestations: write
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
       - name: Extract version
         run: |
           VERSION=$(python -c 'import re; print(re.search(r"__version__\s*=\s*[\"'\'']([^\"'\'']+)", open("cloakbrowser/_version.py").read()).group(1))')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130  # v3
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f  # v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9  # v3
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
       - name: Build and push
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8  # v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -125,11 +125,11 @@ jobs:
             cloakhq/cloakbrowser:latest
           provenance: true
           sbom: true
-      - uses: sigstore/cosign-installer@v3
+      - uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac  # v3
       - name: Sign image
         run: cosign sign --yes cloakhq/cloakbrowser@${{ steps.build.outputs.digest }}
       - name: Attest build provenance
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be  # v2
         with:
           subject-name: index.docker.io/cloakhq/cloakbrowser
           subject-digest: ${{ steps.build.outputs.digest }}
