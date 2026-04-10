@@ -30,8 +30,8 @@ export { WRAPPER_VERSION };
 export const CHROMIUM_VERSION = "146.0.7680.177.1";
 
 export const PLATFORM_CHROMIUM_VERSIONS: Record<string, string> = {
-  "linux-x64": "146.0.7680.177.1",
-  "linux-arm64": "145.0.7632.159.7",
+  "linux-x64": "146.0.7680.177.2",
+  "linux-arm64": "146.0.7680.177.2",
   "darwin-arm64": "145.0.7632.109.2",
   "darwin-x64": "145.0.7632.109.2",
   "windows-x64": "145.0.7632.159.7",
