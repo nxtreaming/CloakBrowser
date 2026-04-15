@@ -27,7 +27,7 @@ export { WRAPPER_VERSION };
 // CHROMIUM_VERSION is the latest across all platforms (for display/reference).
 // Use getChromiumVersion() for the current platform's actual version.
 // ---------------------------------------------------------------------------
-export const CHROMIUM_VERSION = "146.0.7680.177.1";
+export const CHROMIUM_VERSION = "146.0.7680.177.2";
 
 export const PLATFORM_CHROMIUM_VERSIONS: Record<string, string> = {
   "linux-x64": "146.0.7680.177.2",
