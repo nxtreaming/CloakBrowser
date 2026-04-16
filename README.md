@@ -1152,3 +1152,4 @@ Issues and PRs welcome. If something isn't working, [open an issue](https://gith
 - [@evelaa123](https://github.com/evelaa123) — humanize behavior, persistent contexts, Windows fix
 - [@yahooguntu](https://github.com/yahooguntu) — persistent contexts
 - [@kitiho](https://github.com/kitiho) — null viewport fix
+- [@eofreternal](https://github.com/eofreternal) — humanConfig type fix
